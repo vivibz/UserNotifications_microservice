@@ -7,7 +7,7 @@ namespace UserNotifications.Models
         [Key]
         public int Id { get; set; }
         public string? FullName { get; set; }
-        public DateTime CreateAt { get; set; }
+        public DateTime CreateAt { get; internal set; }
 
         public Subscription? Subscription { get; set; }
     }

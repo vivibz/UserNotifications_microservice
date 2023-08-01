@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace UserNotifications.Controllers
 {
-    public class SumitSubscription : Controller
+    public class SumitSubscriptionController : Controller
     {
         // GET: SumitSubscription
         public ActionResult Index()
