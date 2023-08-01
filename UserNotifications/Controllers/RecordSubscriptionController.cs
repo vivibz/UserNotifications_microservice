@@ -4,7 +4,7 @@ namespace UserNotifications.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RecordSubscription : Controller
+    public class RecordSubscriptionController : Controller
     {
         public IActionResult Index()
         {
