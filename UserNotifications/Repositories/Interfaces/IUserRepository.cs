@@ -1,7 +1,10 @@
-﻿namespace UserNotifications.Repositories.Interfaces
+﻿using UserNotifications.Models;
+
+namespace UserNotifications.Repositories.Interfaces
 {
-    public class IUserRepository
+    public interface IUserRepository
     {
-        
+        Task<IEnumerable<User>> GetAllUsers();
+        Task<User> GetById(int id);
     }
 }

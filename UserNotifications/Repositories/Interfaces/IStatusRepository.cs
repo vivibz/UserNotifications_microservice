@@ -1,6 +1,11 @@
-﻿namespace UserNotifications.Repositories.Interfaces
+﻿using UserNotifications.Models;
+
+namespace UserNotifications.Repositories.Interfaces
 {
-    public class IStatusRepository
+    public interface IStatusRepository
     {
+        Task<Status> GetActiveStatus();
+        Task<Status> GetInactiveStatus();
+        Task<List<Status>> GetAllStatus();
     }
 }
