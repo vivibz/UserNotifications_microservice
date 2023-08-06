@@ -1,4 +1,5 @@
-﻿using UserNotifications.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using UserNotifications.Context;
 using UserNotifications.Models;
 using UserNotifications.Repositories.Interfaces;
 
@@ -12,14 +13,14 @@ namespace UserNotifications.Repositories
         {
             _context = context;
         }
-        public Task<IEnumerable<EventHistory>> GetAllEvents()
+        public async Task<IEnumerable<EventHistory>> GetAllEvents()
         {
-            throw new NotImplementedException();
+            return await _context.EventHistory.ToListAsync();
         }
 
-        public Task<EventHistory> GetEventById(int id)
+        public async Task<EventHistory> GetEventBySubscriptionId(int subscriptionId)
         {
-            throw new NotImplementedException();
+            return await _context.EventHistory.Include(s => s.Subscription).Where(e => e.SubscriptionId == subscriptionId).FirstOrDefault();
         }
 
         public Task<List<EventHistory>> GetEventsByDateRangeAsync(DateTime startDate, DateTime endDate)

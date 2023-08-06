@@ -1,4 +1,5 @@
-﻿using UserNotifications.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using UserNotifications.Context;
 using UserNotifications.Models;
 using UserNotifications.Repositories.Interfaces;
 
@@ -12,19 +13,14 @@ namespace UserNotifications.Repositories
         {
             _context = context;
         }
-        public Task<Status> GetActiveStatus()
+        public async Task<IEnumerable<Status>> GetAllStatus()  // TODO: Procurar por tipo de status, passando o enurable
         {
-            throw new NotImplementedException();
+            return await _context.Status.ToListAsync();
         }
 
-        public Task<List<Status>> GetAllStatus()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Status> GetInactiveStatus()
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<Status> GetInactiveStatus()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

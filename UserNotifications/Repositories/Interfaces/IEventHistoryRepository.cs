@@ -8,8 +8,8 @@ namespace UserNotifications.Repositories.Interfaces
         // Buscar todos os registros
         Task<IEnumerable<EventHistory>> GetAllEvents();
         
-        // Buscar um registro pelo seu ID
-        Task<EventHistory> GetEventById(int id);
+        // Buscar um registro ppor subscription ID
+        Task<EventHistory> GetEventBySubscriptionId(int subscriptionId);
 
         // Buscar todos os registros de EventHistory ocorridos em um intervalo de tempo específico (por exemplo, entre duas datas)
         Task<List<EventHistory>> GetEventsByDateRangeAsync(DateTime startDate, DateTime endDate);
