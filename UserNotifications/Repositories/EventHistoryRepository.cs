@@ -20,7 +20,7 @@ namespace UserNotifications.Repositories
 
         public async Task<EventHistory> GetEventBySubscriptionId(int subscriptionId)
         {
-            return await _context.EventHistory.Include(s => s.Subscription).Where(e => e.SubscriptionId == subscriptionId).FirstOrDefault();
+            return await _context.EventHistory.Include(s => s.Subscription).Where(e => e.SubscriptionId == subscriptionId).FirstOrDefaultAsync();
         }
 
         public Task<List<EventHistory>> GetEventsByDateRangeAsync(DateTime startDate, DateTime endDate)

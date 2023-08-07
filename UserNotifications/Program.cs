@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UserNotifications.Context;
+using UserNotifications.Repositories;
+using UserNotifications.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ var mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnecti
 
  builder.Services.AddDbContext<AppDbContext>(options =>
                      options.UseSqlServer(mySqlConnection));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 var app = builder.Build();
 
 
