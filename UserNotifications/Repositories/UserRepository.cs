@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserNotifications.Context;
@@ -10,10 +11,12 @@ namespace UserNotifications.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _context;
+        private  readonly IMapper _mapper;
 
-        public UserRepository(AppDbContext context)
+        public UserRepository(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<User>> GetAllUsers()
