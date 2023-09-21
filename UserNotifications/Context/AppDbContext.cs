@@ -72,6 +72,7 @@ namespace UserNotifications.Context
 
             modelBuilder.Entity<Status>()
                 .Property(s => s.StatusName)
+                .HasMaxLength(100)
                 .HasColumnType("varchar")
                 .IsRequired();
 

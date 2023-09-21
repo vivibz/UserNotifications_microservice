@@ -28,17 +28,13 @@ namespace UserNotifications.Repositories
             return await _context.Subscriptions.Include(s => s.User).Where(s => s.UserId == userId).ToListAsync();
         }
 
-        public async Task<Subscription> SubmitUserSubscription(int userId, ESubscription subscription)
+        public async Task<Subscription> SubmitUserSubscription(int userId, int subscription)
         {
 
-            var subscriptionToSumit = await _context.Subscriptions.Include(s => s.User).Where(s => s.UserId == userId).FirstOrDefaultAsync();
-            if (subscriptionToSumit != null) {
-                if (subscription == ESubscription.PURCHASED || ESubscription.RESTARTED == subscription || ESubscription.CANCELED == subscription)
-                {
-                    
-                }
-            }
-            throw new NotImplementedException();
+            var subscriptionToSumit = await _context.Subscriptions.Where(s => s.UserId == userId).FirstOrDefaultAsync();
+            var submitStatus = await _context.Subscriptions.Include(s => s.StatusId).Where(s => s.StatusId == subscription).FirstOrDefaultAsync();
+            await _context.SaveChangesAsync();
+            return submitStatus;
         }
 
         public async Task<Subscription> UpdateSubscription(int userId, ESubscription subscription)
@@ -55,7 +51,7 @@ namespace UserNotifications.Repositories
                 }
          
             }
-            throw new NotImplementedException();
+            throw new NotImplementedException(); // TODO
 
         }
     }
