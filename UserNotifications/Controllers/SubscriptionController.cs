@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UserNotifications.Api.Services.Interface;
 using UserNotifications.Enums;
 using UserNotifications.Models;
 using UserNotifications.Repositories.Interfaces;
@@ -9,10 +10,10 @@ namespace UserNotifications.Controllers
     [Route("api/[controller]")]
     public class SubscriptionController : Controller
     {
-        private readonly ISubscriptionRepository _subscriptionRepository;
-        public SubscriptionController(ISubscriptionRepository subscriptionRepository)
+        private readonly ISubscriptionService _subscriptionService;
+        public SubscriptionController(ISubscriptionService subscriptionService)
         {
-            _subscriptionRepository = subscriptionRepository;
+            _subscriptionService = subscriptionService;
         }
 
         [HttpGet("statusId")]
@@ -21,7 +22,7 @@ namespace UserNotifications.Controllers
             if (statusId == 0)
                 return BadRequest();
 
-            return Ok( await _subscriptionRepository.GetSubscriptionByStatus(statusId));
+            return Ok( await _subscriptionService.GetSubscriptionByStatus(statusId));
         }
 
         [HttpGet("userId")]
@@ -30,7 +31,7 @@ namespace UserNotifications.Controllers
             if (userId == 0)
                 return BadRequest();
 
-            return Ok(await _subscriptionRepository.GetSubscriptionByUser(userId));
+            return Ok(await _subscriptionService.GetSubscriptionByUser(userId));
         }
 
         [HttpPost("submitSubscription")]
@@ -39,7 +40,7 @@ namespace UserNotifications.Controllers
             if (userId == 0)
                 return BadRequest();
             
-            return Ok (await _subscriptionRepository.SubmitUserSubscription(userId, subscription));
+            return Ok (await _subscriptionService.SubmitUserSubscription(userId, subscription));
 
         }
 
