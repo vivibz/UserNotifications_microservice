@@ -12,10 +12,10 @@ namespace UserNotifications.Models
         public int StatusId { get; set; }
 
         public DateTime CreatedAt { get; internal set; }
-        public DateTime UpdateAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
 
         public User? User { get; set; } //trazer os dados do usuário 
-        public Status? Status { get; set; }
+        public Status Status { get; set; }
 
         public List<EventHistory>? EventHistory { get; set; }
     }

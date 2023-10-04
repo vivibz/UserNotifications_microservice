@@ -8,7 +8,7 @@ using UserNotifications.Context;
 
 #nullable disable
 
-namespace UserNotifications.Migrations
+namespace UserNotifications.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -39,6 +39,7 @@ namespace UserNotifications.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("varchar");
 
                     b.HasKey("Id");
@@ -58,11 +59,24 @@ namespace UserNotifications.Migrations
 
                     b.Property<string>("StatusName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            StatusName = "ACTIVE"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            StatusName = "CANCELED"
+                        });
                 });
 
             modelBuilder.Entity("UserNotifications.Models.Subscription", b =>
@@ -80,7 +94,8 @@ namespace UserNotifications.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime?>("UpdateAt")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")

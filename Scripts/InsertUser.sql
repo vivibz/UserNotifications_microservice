@@ -1,2 +1,2 @@
 INSERT INTO Users (FullName,CreateAt)
-VALUES ('Joao Araujo', GETDATE())
+VALUES ('Vivi Matias', GETDATE())
