@@ -9,7 +9,5 @@ namespace UserNotifications.Models
         public int SubscriptionId { get; set; }
         public string? Type { get; set; }
         public DateTime CreatedAt { get; internal set; }
-
-        public Subscription? Subscription { get; set; }
     }
 }

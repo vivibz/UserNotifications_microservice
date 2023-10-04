@@ -12,7 +12,7 @@ namespace UserNotifications.Api.Services
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
         private readonly IMapper _mapper;
-        public SubscriptionService(IMapper mapper, ISubscriptionRepository subscriptionRepository) 
+        public SubscriptionService(IMapper mapper, ISubscriptionRepository subscriptionRepository)
         {
             _mapper = mapper;
             _subscriptionRepository = subscriptionRepository;
@@ -27,13 +27,10 @@ namespace UserNotifications.Api.Services
             var subscriptionUser = await _subscriptionRepository.GetSubscriptionByUser(userId);
             return _mapper.Map<IEnumerable<SubscriptionDTO>>(subscriptionUser);
         }
-        public Task<bool> SubmitUserSubscription(int userId, int subscription)
+        public async Task<SubscriptionDTO> SubmitUserSubscription(int userId, string notification)
         {
-            return null;
-        }
-        public Task<bool> UpdateSubscription(int userId, ESubscription subscription)
-        {
-            return null;
+            var subscription = await _subscriptionRepository.SubmitUserSubscription(userId, notification);
+            return _mapper.Map<SubscriptionDTO>(subscription);
         }
     }
 }

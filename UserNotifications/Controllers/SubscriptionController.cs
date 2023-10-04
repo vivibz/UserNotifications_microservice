@@ -35,12 +35,12 @@ namespace UserNotifications.Controllers
         }
 
         [HttpPost("submitSubscription")]
-        public async Task<ActionResult<Subscription>> SubmitUserSubscription(int userId, int subscription)
+        public async Task<ActionResult<Subscription>> SubmitUserSubscription(int userId, string notification)
         {
             if (userId == 0)
                 return BadRequest();
             
-            return Ok (await _subscriptionService.SubmitUserSubscription(userId, subscription));
+            return Ok (await _subscriptionService.SubmitUserSubscription(userId, notification));
 
         }
 

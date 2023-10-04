@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using UserNotifications.Api.Services;
+using UserNotifications.Api.Services.Interface;
 using UserNotifications.Context;
 using UserNotifications.Repositories;
 using UserNotifications.Repositories.Interfaces;
@@ -19,8 +21,12 @@ var mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnecti
  builder.Services.AddDbContext<AppDbContext>(options =>
                      options.UseSqlServer(mySqlConnection));
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
