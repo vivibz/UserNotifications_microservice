@@ -1,0 +1,5 @@
+ALTER TABLE Subscriptions ADD CONSTRAINT [FK_Subscriptions_Users_UserId] FOREIGN KEY(UserId)
+REFERENCES Users (Id)
+ON DELETE CASCADE
+GO
+
