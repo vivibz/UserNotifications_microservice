@@ -6,7 +6,8 @@ namespace UserNotifications.Api.Services.Interface
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserDTO>> GetAllUsers();
-        Task<UserDTO> GetById(int id);
+        Task<IEnumerable<UserDTO>> GetAllUsersAsync();
+        Task<UserDTO> GetByIdAsync(int id);
+        Task<UserDTO> CreateUserAsync(string fullName);
     }
 }

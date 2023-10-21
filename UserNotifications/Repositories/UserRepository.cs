@@ -11,22 +11,26 @@ namespace UserNotifications.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _context;
-        private  readonly IMapper _mapper;
 
         public UserRepository(AppDbContext context, IMapper mapper)
         {
             _context = context;
-            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
            return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             return await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+        }
+        public async Task<User> Create(User user)
+        {
+            _context.Users.Add(user); 
+            await _context.SaveChangesAsync();
+            return user;
         }
     }
 }
