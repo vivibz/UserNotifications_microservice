@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Reflection.Emit;
 using UserNotifications.Models;
 
 namespace UserNotifications.Context
@@ -49,11 +50,11 @@ namespace UserNotifications.Context
                 .Property(s => s.StatusId)
                 .IsRequired();
 
-            modelBuilder.Entity<Subscription>()
-                .HasOne(s => s.Status)
-                .WithOne(s => s.Subscription)
-                .HasForeignKey<Subscription>(s => s.StatusId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Subscription>()
+            //    .HasOne(s => s.Status)
+            //    .WithOne(s => s.Subscription)
+            //    .HasForeignKey<Subscription>(s => s.StatusId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Subscription>()
                 .Property(s => s.CreatedAt)
@@ -69,9 +70,9 @@ namespace UserNotifications.Context
             //Status - Mapping property
             modelBuilder.Entity<Status>().HasKey(s => s.Id);
 
-
             modelBuilder.Entity<Status>()
                 .Property(s => s.StatusName)
+                .HasMaxLength(100)
                 .HasColumnType("varchar")
                 .IsRequired();
 
@@ -84,21 +85,30 @@ namespace UserNotifications.Context
                 .Property(e => e.SubscriptionId)
                 .IsRequired();
 
-            modelBuilder.Entity<EventHistory>()
-                .HasOne(e => e.Subscription)
-                .WithMany(e => e.EventHistory)
-                .HasForeignKey(e => e.SubscriptionId);
 
             modelBuilder.Entity<EventHistory>()
                 .Property(e => e.Type)  //compra, cancel, reativação
+                .HasMaxLength(100)
                 .HasColumnType("varchar")
                 .IsRequired();
 
             modelBuilder.Entity<EventHistory>()
                 .Property(s => s.CreatedAt)
                 .IsConcurrencyToken()
-                .IsRequired();
+            .IsRequired();
 
+            modelBuilder.Entity<Status>().HasData( 
+                new Status
+                {
+                    Id = 1,
+                    StatusName = "ACTIVE",
+                },
+                new Status    
+                {
+                    Id = 2,
+                    StatusName = "CANCELED",
+                }
+            );
         }
     }
 }

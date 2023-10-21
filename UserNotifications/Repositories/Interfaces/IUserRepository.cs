@@ -4,7 +4,8 @@ namespace UserNotifications.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAllUsers();
-        Task<User> GetById(int id);
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<User> GetByIdAsync(int id);
+        Task<User> Create(User user);
     }
 }

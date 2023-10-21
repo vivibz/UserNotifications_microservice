@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserNotifications", "UserNotifications\UserNotifications.csproj", "{16FEFC94-2E5E-43D7-AB4F-745E68E61302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserNotifications.Api", "UserNotifications\UserNotifications.Api.csproj", "{16FEFC94-2E5E-43D7-AB4F-745E68E61302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A362CFD5-FEBE-4C94-BC35-D5665EC1698F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserNotificationTests", "UserNotificationTests\UserNotificationTests.csproj", "{48FD5E2E-744E-4341-A079-A19081888BCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{16FEFC94-2E5E-43D7-AB4F-745E68E61302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16FEFC94-2E5E-43D7-AB4F-745E68E61302}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16FEFC94-2E5E-43D7-AB4F-745E68E61302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48FD5E2E-744E-4341-A079-A19081888BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48FD5E2E-744E-4341-A079-A19081888BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48FD5E2E-744E-4341-A079-A19081888BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48FD5E2E-744E-4341-A079-A19081888BCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{48FD5E2E-744E-4341-A079-A19081888BCA} = {A362CFD5-FEBE-4C94-BC35-D5665EC1698F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D91055D0-7203-48AF-A73C-F57FF1CC211F}

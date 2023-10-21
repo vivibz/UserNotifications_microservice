@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UserNotifications.Models;
 
-namespace UserNotifications.Models
+namespace UserNotifications.Api.DTOs
 {
-    public class User
+    public class UserDTO
     {
-        public User(int id)
-        {
-            Id = id;
-        }
-
         [Key]
         public int Id { get; set; }
         public string? FullName { get; set; }
