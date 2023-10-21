@@ -9,8 +9,6 @@ namespace UserNotifications.Api.DTOs.Mappings
         {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Subscription, SubscriptionDTO>().ReverseMap();
-  
-
         }
     }
 }
