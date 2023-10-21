@@ -28,7 +28,7 @@ namespace UserNotifications.Repositories
             return await _context.Subscriptions.Include(s => s.User).Where(s => s.UserId == userId).ToListAsync();
         }
 
-        public async Task<Subscription> SubmitUserSubscription(int userId, string notification)
+        public async Task<bool> SubmitUserSubscription(int userId, string notification)
         {
             try
             {
@@ -75,13 +75,7 @@ namespace UserNotifications.Repositories
                         break;
                     default: throw new Exception("Invalid Notification.");
                 }
-                if(await _context.SaveChangesAsync() > 0)
-                {
-                    return subscription;
-                }else
-                {
-                    throw new Exception("Error on save.");
-                }
+                return await _context.SaveChangesAsync() > 0;
                 
              }
             catch (Exception ex) 

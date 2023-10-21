@@ -10,12 +10,14 @@ namespace UserNotifications.Api.Services
 {
     public class SubscriptionService : ISubscriptionService
     {
-        private readonly ISubscriptionRepository _subscriptionRepository;
         private readonly IMapper _mapper;
-        public SubscriptionService(IMapper mapper, ISubscriptionRepository subscriptionRepository)
+        private readonly ISubscriptionRepository _subscriptionRepository;
+        private readonly IQueueNotificationService _queueNotificationService;
+        public SubscriptionService(IMapper mapper, ISubscriptionRepository subscriptionRepository, IQueueNotificationService queueNotificationService)
         {
             _mapper = mapper;
             _subscriptionRepository = subscriptionRepository;
+            _queueNotificationService = queueNotificationService;
         }
         public async Task<IEnumerable<SubscriptionDTO>> GetSubscriptionByStatus(int statusId)
         {
@@ -33,12 +35,23 @@ namespace UserNotifications.Api.Services
             var subscriptionUser = await _subscriptionRepository.GetSubscriptionByUser(userId);
             return _mapper.Map<IEnumerable<SubscriptionDTO>>(subscriptionUser);
         }
-        public async Task<SubscriptionDTO> SubmitUserSubscription(int userId, string notification)
+        public async Task<string> SubmitUserSubscription(int userId, string notification)
         {
             if (userId == 0)
                 throw new Exception("UserID is not valid");
-            var subscription = await _subscriptionRepository.SubmitUserSubscription(userId, notification);
-            return _mapper.Map<SubscriptionDTO>(subscription);
+
+           var notificationSent = await _queueNotificationService.Publish(userId, notification);
+            if (notificationSent)
+            {
+                return notification; 
+            } else
+            {
+                throw new Exception("Notification not sent");
+            }
         }
+        public async Task<bool> RegisterUserSubscription(int userId, string notification)
+        {
+            return await _subscriptionRepository.SubmitUserSubscription(userId, notification);
+        }// enviando para o repository os dados necessário para salvar a subscrtiopn do usuário 
     }
 }
