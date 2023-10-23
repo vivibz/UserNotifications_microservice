@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Reflection.Metadata;
 using System.Text;
 
-public class Program
+public class Consumer
 {
     static void Main(string[] args)
     {
