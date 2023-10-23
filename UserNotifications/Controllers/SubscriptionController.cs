@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UserNotifications.Api.Models.Request;
 using UserNotifications.Api.Services.Interface;
 using UserNotifications.Enums;
 using UserNotifications.Models;
@@ -42,6 +43,15 @@ namespace UserNotifications.Controllers
             
             return Ok (await _subscriptionService.SubmitUserSubscription(userId, notification));
 
+        }
+
+        [HttpPost("registerUserSubscription")]
+        public async Task<ActionResult<bool>> RegisterUserSubscription([FromBody] RegisterUserSubscriptionDTO regiterUserSubscriptionDto)
+        {
+            if (regiterUserSubscriptionDto.UserId == 0 || regiterUserSubscriptionDto.Notification == null)
+                return BadRequest();
+
+            return Ok(await _subscriptionService.RegisterUserSubscription(regiterUserSubscriptionDto.UserId, regiterUserSubscriptionDto.Notification));
         }
 
 
