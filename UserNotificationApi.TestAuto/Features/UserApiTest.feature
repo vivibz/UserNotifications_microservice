@@ -1,5 +1,6 @@
-﻿Feature: Given 
+﻿Feature: UserApiTest
 
+A short summary of the feature
 
 @tag1
 Scenario: Get customer by an identifier
