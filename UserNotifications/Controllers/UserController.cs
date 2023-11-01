@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UserNotifications.Api.DTOs;
+using UserNotifications.Api.Models.Request;
 using UserNotifications.Api.Services.Interface;
 using UserNotifications.Models;
 using UserNotifications.Repositories.Interfaces;
@@ -31,12 +32,12 @@ namespace UserNotifications.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<UserDTO>> CreateUser([FromBody] string fullName)
+        public async Task<ActionResult<UserDTO>> CreateUser([FromBody] CreateUserRequest request)
         {
-            if (fullName == null)
+            if (request.FullName == null)
                 return BadRequest("Data Invalid");
 
-           var createdUser = await _userService.CreateUserAsync(fullName);
+           var createdUser = await _userService.CreateUserAsync(request.FullName);
             return new OkObjectResult(createdUser);
         }
     }
