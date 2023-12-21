@@ -12,8 +12,8 @@ using UserNotifications.Context;
 namespace UserNotifications.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230925003848_initial")]
-    partial class initial
+    [Migration("20231120154947_changeDB")]
+    partial class changeDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,7 +91,6 @@ namespace UserNotifications.Api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .IsConcurrencyToken()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("StatusId")
@@ -106,8 +105,7 @@ namespace UserNotifications.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StatusId")
-                        .IsUnique();
+                    b.HasIndex("StatusId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -139,20 +137,18 @@ namespace UserNotifications.Api.Migrations
 
             modelBuilder.Entity("UserNotifications.Models.EventHistory", b =>
                 {
-                    b.HasOne("UserNotifications.Models.Subscription", "Subscription")
+                    b.HasOne("UserNotifications.Models.Subscription", null)
                         .WithMany("EventHistory")
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("UserNotifications.Models.Subscription", b =>
                 {
                     b.HasOne("UserNotifications.Models.Status", "Status")
-                        .WithOne("Subscription")
-                        .HasForeignKey("UserNotifications.Models.Subscription", "StatusId")
+                        .WithMany("Subscription")
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
