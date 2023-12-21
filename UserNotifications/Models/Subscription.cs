@@ -15,7 +15,7 @@ namespace UserNotifications.Models
         public DateTime? UpdateAt { get; set; }
 
         public User? User { get; set; } //trazer os dados do usuário 
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
 
         public List<EventHistory>? EventHistory { get; set; }
     }

@@ -27,13 +27,13 @@ namespace UserNotifications.Api.Services
             var subscriptionStatus = await _subscriptionRepository.GetSubscriptionByStatus(statusId);
             return _mapper.Map<IEnumerable<SubscriptionDTO>>(subscriptionStatus);
         }
-        public async Task<IEnumerable<SubscriptionDTO>> GetSubscriptionByUser(int userId)
+        public async Task<SubscriptionDTO> GetSubscriptionByUser(int userId)
         {
             if (userId == 0)
                 throw new Exception("UserId is not valid");
 
             var subscriptionUser = await _subscriptionRepository.GetSubscriptionByUser(userId);
-            return _mapper.Map<IEnumerable<SubscriptionDTO>>(subscriptionUser);
+            return _mapper.Map<SubscriptionDTO>(subscriptionUser);
         }
         public async Task<string> SubmitUserSubscription(int userId, string notification)
         {
@@ -52,6 +52,6 @@ namespace UserNotifications.Api.Services
         public async Task<bool> RegisterUserSubscription(int userId, string notification)
         {
             return await _subscriptionRepository.SubmitUserSubscription(userId, notification);
-        }// enviando para o repository os dados necessário para salvar a subscrtiopn do usuário 
+        }// enviando para o repository os dados necessário para salvar a subscription do usuário 
     }
 }

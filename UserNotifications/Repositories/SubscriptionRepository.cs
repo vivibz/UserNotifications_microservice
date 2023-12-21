@@ -23,9 +23,15 @@ namespace UserNotifications.Repositories
             return await _context.Subscriptions.Include(s => s.Status).Where(s => s.StatusId == statusId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Subscription>> GetSubscriptionByUser(int userId)
-        {
-            return await _context.Subscriptions.Include(s => s.User).Where(s => s.UserId == userId).ToListAsync();
+        public async Task<Subscription> GetSubscriptionByUser(int userId)
+                {
+            var result = await _context.Subscriptions.Include(s => s.User).Where(s => s.UserId == userId).FirstOrDefaultAsync();
+
+            if(result == null)
+            {
+                throw new Exception("Subscription not found");
+            }
+            return result;
         }
 
         public async Task<bool> SubmitUserSubscription(int userId, string notification)
@@ -38,6 +44,16 @@ namespace UserNotifications.Repositories
                 }
 
                 var subscription = await _context.Subscriptions.Include(s => s.Status).Where(s => s.UserId == userId).FirstOrDefaultAsync();
+                
+                if (subscription == null)
+                {
+                    var newSubscription = await _context.Subscriptions.AddAsync(new Subscription { UserId = userId, StatusId = 1, CreatedAt = DateTime.Now, UpdateAt = DateTime.Now});
+                    await _context.SaveChangesAsync();
+                    subscription = await _context.Subscriptions.Include(s => s.Status).Where(s => s.UserId == userId).FirstOrDefaultAsync();
+                    await _context.EventHistory.AddAsync(new EventHistory { SubscriptionId = subscription.Id, CreatedAt = DateTime.Now, Type = notification });
+                    return await _context.SaveChangesAsync() > 0;
+
+                }
                 //TODO: Usar dictionary
                 switch (notification)
                 {

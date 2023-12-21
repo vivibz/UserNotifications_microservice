@@ -46,20 +46,18 @@ namespace UserNotifications.Context
                 .HasForeignKey<Subscription>(s => s.UserId)
                 .IsRequired();
 
-            modelBuilder.Entity<Subscription>()
-                .Property(s => s.StatusId)
-                .IsRequired();
-
             //modelBuilder.Entity<Subscription>()
-            //    .HasOne(s => s.Status)
-            //    .WithOne(s => s.Subscription)
-            //    .HasForeignKey<Subscription>(s => s.StatusId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            //    .Property(s => s.StatusId)
+            //    .IsRequired();
+
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.Status)
+                .WithMany(s => s.Subscription)
+                .HasForeignKey(s => s.StatusId);
 
             modelBuilder.Entity<Subscription>()
                 .Property(s => s.CreatedAt)
-                .IsRequired()
-                .IsConcurrencyToken();
+                .IsRequired();
 
             modelBuilder.Entity<Subscription>()
                 .Property(s => s.UpdateAt)
@@ -68,7 +66,7 @@ namespace UserNotifications.Context
 
 
             //Status - Mapping property
-            modelBuilder.Entity<Status>().HasKey(s => s.Id);
+            //modelBuilder.Entity<Status>().HasKey(s => s.Id);
 
             modelBuilder.Entity<Status>()
                 .Property(s => s.StatusName)

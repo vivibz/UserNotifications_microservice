@@ -106,8 +106,7 @@ namespace UserNotifications.Api.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Subscriptions_StatusId",
                 table: "Subscriptions",
-                column: "StatusId",
-                unique: true);
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subscriptions_UserId",

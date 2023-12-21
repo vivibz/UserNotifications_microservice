@@ -27,7 +27,7 @@ namespace UserNotifications.Controllers
         }
 
         [HttpGet("userId")]
-        public async Task<ActionResult<IEnumerable<Subscription>>> GetSubscriptionByUser(int userId) 
+        public async Task<ActionResult<Subscription>> GetSubscriptionByUser(int userId) 
         {
             if (userId == 0)
                 return BadRequest();
@@ -36,14 +36,14 @@ namespace UserNotifications.Controllers
         }
 
         [HttpPost("submitSubscription")]
-        public async Task<ActionResult<Subscription>> SubmitUserSubscription(int userId, string notification)
+        public async Task<ActionResult<Subscription>> SubmitUserSubscription([FromBody] RegisterUserSubscriptionDTO regiterUserSubscriptionDto)
         {
-            if (userId == 0)
+            if (regiterUserSubscriptionDto.UserId == 0)
                 return BadRequest();
 
             //TODO: FAZER METODO PARA NÃO PERMITIR NOTIFICAÇÕES COM ERROS DE DIGITAÇÃO
             
-            return Ok (await _subscriptionService.SubmitUserSubscription(userId, notification));
+            return Ok (await _subscriptionService.SubmitUserSubscription(regiterUserSubscriptionDto.UserId, regiterUserSubscriptionDto.Notification));
 
         }
 
