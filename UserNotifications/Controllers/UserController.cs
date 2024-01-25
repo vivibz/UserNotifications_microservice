@@ -16,7 +16,7 @@ namespace UserNotifications.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
+        [HttpGet] 
         public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
             return Ok(await _userService.GetAllUsersAsync());
