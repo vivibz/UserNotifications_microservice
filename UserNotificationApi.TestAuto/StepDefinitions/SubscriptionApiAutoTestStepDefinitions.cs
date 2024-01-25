@@ -9,36 +9,32 @@ namespace UserNotificationApi.TestAuto.StepDefinitions
     {
         private const string BASE_URL = "https://localhost:7268/api/Subscription/";
         private readonly ScenarioContext _scenarioContext;
+
+        string userId = "";
+        string notification = "";
+
         public SubscriptionApiAutoTestStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
+        [Given(@"the url is '([^']*)'")]
+        public void GivenTheUrlIs(string url)
+        {
+            _scenarioContext["EndPoint"] = url;
+        }
+
         [Given(@"that the user id is '([^']*)'")]
         public void GivenThatTheUserIdIs(string id)
         {
-            _scenarioContext["EndPoint"] = BASE_URL + "submitSubscription?userId=" + id;
+            _scenarioContext["userId"] = id;
         }
+
 
         [Given(@"that notification is '(.*)'")]
         public void GivenThatNotificationIs(string notification)
         {
-            switch (notification.ToUpper())
-            {
-                case "SUBSCRIPTION_PURCHASED":
-                    notification = "SUBSCRIPTION_PURCHASED";
-                    break;
-                case "SUBSCRIPTION_CANCELED":
-                    notification = "SUBSCRIPTION_CANCELED";
-                    break;
-                case "SUBSCRIPTION_RESTARTED":
-                    notification = "SUBSCRIPTION_RESTARTED";
-                    break;
-                default:
-                    Assert.Null("Notification invalidated");
-                    break;
-            }
             Console.WriteLine(notification);
-            _scenarioContext["EndPoint"] = _scenarioContext["EndPoint"] + "&notification=" + notification;
+            _scenarioContext["notification"] = notification;
         }
         [Given(@"the calling method '([^']*)'")]
         public void GivenTheCallingMethod(string call)
@@ -64,16 +60,24 @@ namespace UserNotificationApi.TestAuto.StepDefinitions
         [When(@"submit")]
         public void WhenSubmit()
         {
+
             var endpoint = (String)_scenarioContext["EndPoint"];
-            SubmitRequest(endpoint);
+            _scenarioContext["Body"] = "{\"userId\": \"" + _scenarioContext["userId"] + "\"" + "," + "\"notification\":" + "\"" + _scenarioContext["notification"] + "\"" + "}";
+            var body = (String)_scenarioContext["Body"];
+            SubmitRequest(endpoint, body);
         }
         #region Private
-        private RestResponse SubmitRequest(string endpoint)
+        private RestResponse SubmitRequest(string endpoint, string body)
         {
             var url = endpoint;
             var request = new RestRequest();
 
             request.Method = (Method)_scenarioContext["HttpMethod"];
+            
+            if (request.Method == Method.Post)
+            {
+                request.AddStringBody(body, contentType: "application/json");
+            }
 
             var restClient = new RestClient(url);
             var response = restClient.Execute(request);

@@ -40,7 +40,7 @@ namespace UserNotificationApi.TestAuto.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SubscriptionApiAutoTest", "A short summary of the feature", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SubscriptionApiAutoTest", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -73,6 +73,15 @@ namespace UserNotificationApi.TestAuto.Features
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
+        }
+        
+        public virtual void FeatureBackground()
+        {
+#line 2
+#line hidden
+#line 3
+ testRunner.Given("the url is \'https://localhost:7268/api/Subscription/submitSubscription\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
         }
         
         void System.IDisposable.Dispose()
@@ -110,8 +119,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 2
+this.FeatureBackground();
+#line hidden
 #line 7
- testRunner.Given("that the user id is \'1002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.And("that the user id is \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 8
  testRunner.And("that notification is \'SUBSCRIPTION_PURCHASED\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -159,8 +171,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 2
+this.FeatureBackground();
+#line hidden
 #line 15
- testRunner.Given("that the user id is \'1002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.And("that the user id is \'1002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 16
  testRunner.And("that notification is \'SUBSCRIPTION_RESTARTED\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -208,8 +223,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 2
+this.FeatureBackground();
+#line hidden
 #line 22
- testRunner.Given("that the user id is \'1002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.And("that the user id is \'1002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 23
  testRunner.And("that notification is \'SUBSCRIPTION_CANCELED\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -257,6 +275,9 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 2
+this.FeatureBackground();
+#line hidden
 #line 30
  testRunner.Given("that the status id is \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden

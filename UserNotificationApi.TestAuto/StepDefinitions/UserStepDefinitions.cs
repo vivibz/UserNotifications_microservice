@@ -13,6 +13,7 @@ namespace UserNotificationApi.TestAuto.StepDefinitions
         private const string BASE_URL = "https://localhost:7268/api/User/id?id=";
 
         private readonly ScenarioContext _scenarioContext;
+
         public UserStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -59,15 +60,6 @@ namespace UserNotificationApi.TestAuto.StepDefinitions
 
         request.Method = (Method)_scenarioContext["HttpMethod"];
 
-        //request.Parameters.RemoveParameter();
-
-            //if(request.Method == Method.Post)
-            //{
-            //    var json = (String)_scenarioContext["Data"];
-
-            //    if (!String.IsNullOrWhiteSpace(json))
-            //        request.AddParameter("application/json", json, ParameterType.RequestBody);
-            //}
         var restClient = new RestClient(url);
         var response = restClient.Execute(request);
 
@@ -82,22 +74,6 @@ namespace UserNotificationApi.TestAuto.StepDefinitions
     {
         var response = (RestResponse)_scenarioContext["Response"];
 
-        //string errorMessage;
-
-        //switch (response.StatusCode)
-        //{
-        //    case HttpStatusCode.InternalServerError:
-        //        case HttpStatusCode.NotFound:
-        //        errorMessage = "ResponseUri: " + response.ResponseUri;
-        //        break;
-        //   case HttpStatusCode.Forbidden:
-        //        var auth = response.Request.Parameters.Where(x => x.Name == "Authorization").FirstOrDefault();
-        //    errorMessage = "Authorization: " + (auth != null ? auth.Value : "none");
-        //    break;
-        //    default:
-        //        errorMessage = response.Content;
-        //        break;
-        //}
         Assert.Equal(ok, response.StatusCode.ToString());
     }
 
@@ -133,14 +109,10 @@ namespace UserNotificationApi.TestAuto.StepDefinitions
 
             request.Method = (Method)_scenarioContext["HttpMethod"];
 
-           
-            //request.Parameters.RemoveParameter();
-            //_scenarioContext["Data"] = request.AddJsonBody(request);
-            //VEr como adiciona parametro na boody, ver documentação
+          
             if (request.Method == Method.Post)
             {
                 request.AddStringBody(body, contentType: "application/json");
-                //request.AddParameter("application/json", JsonSerializer.Serialize(body), ParameterType.RequestBody);
             }
             var restClient = new RestClient(url);
             var response = restClient.Execute(request); 

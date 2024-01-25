@@ -1,10 +1,10 @@
 ﻿Feature: SubscriptionApiAutoTest
-
-A short summary of the feature
+Background:
+	Given the url is 'https://localhost:7268/api/Subscription/submitSubscription'
 
 @tag3
-Scenario: Submit subscription user purchased 
-	Given that the user id is '1002'
+Scenario: Submit subscription user purchased
+	And that the user id is '1'
 	And that notification is 'SUBSCRIPTION_PURCHASED'
 	And the calling method 'POST'
 	When submit 
@@ -12,14 +12,14 @@ Scenario: Submit subscription user purchased
 
 @tag4
 Scenario: Submit subscription user restarted
-	Given that the user id is '1002'
+	And that the user id is '1002'
 	And that notification is 'SUBSCRIPTION_RESTARTED'
 	And the calling method 'POST'
 	When submit 
 	Then the submission statuscode 'OK'
 @tag5
 Scenario: Submit subscription user canceled
-	Given that the user id is '1002'
+	And that the user id is '1002'
 	And that notification is 'SUBSCRIPTION_CANCELED'
 	And the calling method 'POST'
 	When submit 
