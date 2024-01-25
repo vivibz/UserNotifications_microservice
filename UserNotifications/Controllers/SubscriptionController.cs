@@ -41,7 +41,6 @@ namespace UserNotifications.Controllers
             if (regiterUserSubscriptionDto.UserId == 0)
                 return BadRequest();
 
-            //TODO: FAZER METODO PARA NÃO PERMITIR NOTIFICAÇÕES COM ERROS DE DIGITAÇÃO
             
             return Ok (await _subscriptionService.SubmitUserSubscription(regiterUserSubscriptionDto.UserId, regiterUserSubscriptionDto.Notification));
 
