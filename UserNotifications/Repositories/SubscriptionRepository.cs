@@ -21,7 +21,7 @@ namespace UserNotifications.Repositories
         public async Task<IEnumerable<Subscription>> GetSubscriptionByStatus(int statusId)
         {
             return await _context.Subscriptions.Include(s => s.Status).Where(s => s.StatusId == statusId).ToListAsync();
-        }
+        } 
 
         public async Task<Subscription> GetSubscriptionByUser(int userId)
                 {
@@ -54,7 +54,6 @@ namespace UserNotifications.Repositories
                     return await _context.SaveChangesAsync() > 0;
 
                 }
-                //TODO: Usar dictionary
                 switch (notification)
                 {
                     case "SUBSCRIPTION_PURCHASED":
